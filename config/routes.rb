@@ -1,27 +1,40 @@
 Rails.application.routes.draw do
 
-  devise_for :customers, controllers: {
-    sessions:      'customers/sessions',
-    passwords:     'customers/passwords',
-    registrations: 'customers/registrations'
-  }
+      devise_for :admins
 
-  root 'homes#top'
-  get 'homes/about' => 'public/home#about', as: 'about'
+      namespace :admin do
+         root 'homes#top'
+         resources :customers, only: [:index, :show, :edit, :update]
+         resources :genres, only: [:index, :create, :edit, :update]
+         resources :items, only: [:new, :create, :index, :show, :edit, :update]
+         resources :orders, only: [:show, :update]
+         resources :order_details, only: [:update]
+       end
 
-  resources :items, only: [:index, :show]
+        devise_for :customers, controllers: {
+          sessions:      'customers/sessions',
+          passwords:     'customers/passwords',
+          registrations: 'customers/registrations'
+        }
 
-  get 'custromers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe'
-  patch 'custromers/withdraw' => 'public/customers#withdraw',as: 'withdraw'
-  resource :customers, only: [:show, :edit, :update]
+      scope module: :public do
+        root 'homes#top'
+        get 'homes/about' => 'homes#about', as: 'about'
 
-  delete 'cart_items/destroy_all' => 'public/cart_items#destroy_all', as: 'destroy_all'
-  resources :cart_items, only: [:index, :update, :destroy, :create]
+        resources :items, only: [:index, :show]
 
-  post 'orders/confirm' => 'orders#comfirm', as: 'comfirm'
-  get 'orders/complete' => 'orders#compleate', as: 'complete'
-  resources :orders, only: [:new, :create, :index, :show]
+        get 'custromers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+        patch 'custromers/withdraw' => 'customers#withdraw',as: 'withdraw'
+        resource :customers, only: [:show, :edit, :update]
 
-  resources :addresses, only: [:index, :edit, :destroy, :create, :update]
+        delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
+        resources :cart_items, only: [:index, :update, :destroy, :create]
+
+        post 'orders/confirm' => 'orders#comfirm', as: 'comfirm'
+        get 'orders/complete' => 'orders#compleate', as: 'complete'
+        resources :orders, only: [:new, :create, :index, :show]
+
+        resources :addresses, only: [:index, :edit, :destroy, :create, :update]
+      end
 
 end
