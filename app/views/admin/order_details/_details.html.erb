@@ -1,0 +1,36 @@
+<!--詳細品目部分テンプレート-->
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>単価（税込）</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>制作ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%# details.each do |detail| %>
+      <tr>
+        <td><%= detail.items.name %></td>
+        <td></td>
+        <td><%= detail.amount %></td>
+        <td></td>
+        <td>
+          <%#= form_with model:order_detail do |f| %>
+            <%#= f.select :making_status, [["制作不可", "0"], ["制作待ち", "1"], ["制作中", "2"], ["制作完了", "3"]] %>
+            <%#= f.submit "更新" %>
+          <%# end %>
+        </td>
+        <td><%#= detail.submit "更新" %></td>
+      </tr>
+      <%# end %>
+    </tbody>
+  </table>
+</div>
+
+<!--商品値段-->
+<div>
+</div>
