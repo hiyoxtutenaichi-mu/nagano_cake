@@ -72,4 +72,8 @@ gem "refile-mini_magick"
 gem 'bootstrap','~> 4.5'
 gem 'jquery-rails'
 
+# ページング
+gem 'kaminari','~> 1.2.1'
 
+# byebug　[binding.pry] をコントローラのアクションに追加する
+gem 'pry-byebug'
