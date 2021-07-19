@@ -1,0 +1,14 @@
+<!--顧客のヘッダー-->
+
+<li class="nav-item">
+  <%= link_to 'マイページ', customers_path, class: 'nav-link text-dark' %>
+</li>
+<li class="nav-item">
+  <%= link_to '商品一覧', orders_path, class: 'nav-link text-dark' %>
+</li>
+<li class="nav-item">
+  <%= link_to 'カート', cart_item_path(current_customer.id), class: 'nav-link text-dark'%>
+</li>
+<li class="nav-item">
+  <%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: 'nav-link text-dark' %>
+</li>
