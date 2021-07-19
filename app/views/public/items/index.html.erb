@@ -6,11 +6,11 @@
       <% @items.each do |item| %>
         <%= attchment_image_tag item, :image, :fill, 40, 40, format: 'jpeg' %>
         <%= item.name %><br>
-        <p>¥<%= item.price %></p>
+        <!--↓↓↓(:delimited)で値段の3桁目を区切って表示↓↓↓-->
+        <p>¥<%= item.price %>.to_s(:delimited)</p>
       <% end %>
 
       <%= paginate @items %>
     </div>
   </div>
-
 </div>
