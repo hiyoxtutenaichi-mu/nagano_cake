@@ -15,7 +15,7 @@
         <%= attachment_image_tag item, :image, :fill, 40, 40, format: 'jpeg' %>
         <p>
           <%= item.name %><br>
-          <%= item.price %>
+          ¥<%= item.price.to_s(:delimited) %>
         </p>
       <% end %>
     </div>
