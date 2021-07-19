@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  
+
       devise_for :admins
-      
+
       namespace :admin do
          root 'homes#top'
          resources :customers, only: [:index, :show, :edit, :update]
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
          resources :orders, only: [:show, :update]
          resources :order_details, only: [:update]
        end
-  
+
         devise_for :customers, controllers: {
           sessions:      'public/sessions',
           passwords:     'public/passwords',
@@ -19,7 +19,9 @@ Rails.application.routes.draw do
 
       scope module: :public do
         root 'homes#top'
-        get 'homes/about' => 'home#about', as: 'about'
+
+        get 'homes/about' => 'homes#about', as: 'about'
+
 
         resources :items, only: [:index, :show]
 
@@ -38,4 +40,3 @@ Rails.application.routes.draw do
       end
 
 end
-

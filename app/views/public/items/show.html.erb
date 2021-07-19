@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <%= attachment_image_tag @item, image, :fill, 40, 40, format: 'jpeg' %>
+    </div>
+
+    <div class="col-md-6 offset-md-1 ">
+      <h2><%= @item.name %></h2>
+      <p><%= @item.introduction %></p>
+      <p>¥<%= @item.price.add_tax_price.to_s(delimited) %>(税込)</p>
+
+      <%= form_with model: @cart_item, url:cart_items_path, method: :post, local: true do |f| %>
+        <%= f.number_field :quantity, placeholder: "個数選択" %>
+        <%= f.submit "カートに入れる", class:"btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>
