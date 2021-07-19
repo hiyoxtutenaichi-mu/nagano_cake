@@ -19,15 +19,15 @@ Rails.application.routes.draw do
 
       scope module: :public do
         root 'homes#top'
-        get 'homes/about' => 'homes#about', as: 'about'
+        get 'homes/about' => 'public/home#about', as: 'about'
 
         resources :items, only: [:index, :show]
 
-        get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
-        patch 'customers/withdraw' => 'customers#withdraw',as: 'withdraw'
+        get 'custromers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe'
+        patch 'custromers/withdraw' => 'public/customers#withdraw',as: 'withdraw'
         resource :customers, only: [:show, :edit, :update]
 
-        delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
+        delete 'cart_items/destroy_all' => 'public/cart_items#destroy_all', as: 'destroy_all'
         resources :cart_items, only: [:index, :update, :destroy, :create]
 
         post 'orders/confirm' => 'orders#comfirm', as: 'comfirm'
@@ -38,3 +38,4 @@ Rails.application.routes.draw do
       end
 
 end
+

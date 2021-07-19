@@ -155,14 +155,12 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     popper_js (1.16.0)
-
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-
     public_suffix (4.0.6)
     puma (3.12.6)
     racc (1.5.2)
