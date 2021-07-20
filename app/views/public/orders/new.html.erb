@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <h3>注文情報入力</h3>
-      <%= form_with(model: @order, url: orders_comfirm_path, method: :post, local: true)do |f| %>
+      <%= form_with(model: @order, url: 'orders/comfirm', method: :post, local: true)do |f| %>
         <table>
           <tbody>
             <tr>
@@ -10,7 +10,7 @@
               <td>
                 <div class="radio">
                   <%= f.radio_button :payment_method, 0 %>
-                  <label class="payment-label"> クレジットカード</label>
+                  <label class="payment-label"> クレジットカード</label><br>
                   <%= f.radio_button :payment_method, 1 %>
                   <label class="payment-label">銀行振り込み</label>
                 </div>
