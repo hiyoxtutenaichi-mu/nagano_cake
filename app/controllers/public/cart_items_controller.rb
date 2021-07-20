@@ -3,7 +3,7 @@ class Public::CartItemsController < ApplicationController
 before_action :authenticate_customer!, except: [:create]
 
   def index
-    @cart_items = current_customer
+    @cart_items = current_customer.cart_items
   end
 
   def create
@@ -18,13 +18,13 @@ before_action :authenticate_customer!, except: [:create]
     	    if cart_item_id == @cart_item.item_id
     			  sum_of_amount = cart_item.amount + @cart_item.amount
     			  cart_item.update_attribute(:amount, sum_of_amount)
-    			  redirect_to public_cart_items_path, notice: "カートに商品を追加しました"
+    			  redirect_to cart_items_path, notice: "カートに商品を追加しました"
     			  @cart_item.delete
     	    end
   		  end
       end
     	if @cart_item.save
-    		redirect_to public_cart_items_path, notice: "カートに商品を追加しました"
+    		redirect_to cart_items_path, notice: "カートに商品を追加しました"
     	end
     else
   	  redirect_to new_customer_session_path
@@ -34,19 +34,19 @@ before_action :authenticate_customer!, except: [:create]
   def update
     cart_item = current_customer.cart_items.find(params[:id])
 		cart_item.update(cart_item_params)
-		redirect_to public_cart_items_path, notice: "変更を保存しました"
+		redirect_to cart_items_path, notice: "変更を保存しました"
   end
 
   def destroy
     cart_item = current_customer.cart_items.find(params[:id])
 		cart_item.destroy
-		redirect_to public_cart_items_path
+		redirect_to cart_items_path
   end
 
   def all_destroy
     cart_items = current_customer.cart_items.all
     cart_items.destroy_all
-    redirect_to public_cart_items_path
+    redirect_to cart_items_path
   end
 
   private
