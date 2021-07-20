@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <%= attachment_image_tag @item, :image, :fill, 100, 100, format: 'jpeg' %>
+      <%= attachment_image_tag @item, :image, format: 'jpeg',size:'300x200' %>
       <h2><%= @item.name %></h2>
       <p><%= @item.introduction %></p>
       <p>¥<%= @item.add_tax_price.to_s(:delimited) %>(税込)</p>
