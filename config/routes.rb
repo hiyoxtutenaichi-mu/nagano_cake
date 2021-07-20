@@ -11,7 +11,12 @@ Rails.application.routes.draw do
          resources :order_details, only: [:update]
        end
 
-
+       devise_for :customers, controllers: {
+          sessions:      'public/sessions',
+          passwords:     'public/passwords',
+          registrations: 'public/registrations'
+          }
+  
       scope module: :public do
         root 'homes#top'
 
@@ -19,7 +24,7 @@ Rails.application.routes.draw do
 
 
         resources :items, only: [:index, :show]
-
+        
         get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
         patch 'customers/withdraw' => 'customers#withdraw',as: 'withdraw'
         resources :customers, only: [:show, :edit, :update]
@@ -33,11 +38,5 @@ Rails.application.routes.draw do
 
         resources :addresses, only: [:index, :edit, :destroy, :create, :update]
       end
-
-      devise_for :customers, controllers: {
-          sessions:      'public/sessions',
-          passwords:     'public/passwords',
-          registrations: 'public/registrations'
-        }
 
 end

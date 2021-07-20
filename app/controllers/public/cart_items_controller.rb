@@ -3,28 +3,28 @@ class Public::CartItemsController < ApplicationController
 before_action :authenticate_customer!, except: [:create]
 
   def index
-    @cart_products = current_customer.cart_products.all
+    @cart_items = current_customer
   end
 
   def create
     if customer_signed_in?
-      @cart_product = current_customer.cart_products.new(cart_product_params)
-      @cart_products = current_customer.cart_products.all
+      @cart_item = current_customer.cart_item.new(cart_item_params)
+      @cart_items = current_customer.cart_items.all
 
-      unless @cart_product.quantity.present?
+      unless @cart_item.amount.present?
     		redirect_to request.referrer, alert: "個数を選択してください"
       else
-        @cart_products.each do |cart_product|
-    	    if cart_product.product_id == @cart_product.product_id
-    			  sum_of_quantity = cart_product.quantity + @cart_product.quantity
-    			  cart_product.update_attribute(:quantity, sum_of_quantity)
-    			  redirect_to public_cart_products_path, notice: "カートに商品を追加しました"
-    			  @cart_product.delete
+        @cart_items.each do |cart_item|
+    	    if cart_item_id == @cart_item.item_id
+    			  sum_of_amount = cart_item.amount + @cart_item.amount
+    			  cart_item.update_attribute(:amount, sum_of_amount)
+    			  redirect_to public_cart_items_path, notice: "カートに商品を追加しました"
+    			  @cart_item.delete
     	    end
   		  end
       end
-    	if @cart_product.save
-    		redirect_to public_cart_products_path, notice: "カートに商品を追加しました"
+    	if @cart_item.save
+    		redirect_to public_cart_items_path, notice: "カートに商品を追加しました"
     	end
     else
   	  redirect_to new_customer_session_path
@@ -32,27 +32,27 @@ before_action :authenticate_customer!, except: [:create]
   end
 
   def update
-    cart_product = current_customer.cart_products.find(params[:id])
-		cart_product.update(cart_product_params)
-		redirect_to public_cart_products_path, notice: "変更を保存しました"
+    cart_item = current_customer.cart_items.find(params[:id])
+		cart_item.update(cart_item_params)
+		redirect_to public_cart_items_path, notice: "変更を保存しました"
   end
 
   def destroy
-    cart_product = current_customer.cart_products.find(params[:id])
-		cart_product.destroy
-		redirect_to public_cart_products_path
+    cart_item = current_customer.cart_items.find(params[:id])
+		cart_item.destroy
+		redirect_to public_cart_items_path
   end
 
   def all_destroy
-    cart_products = current_customer.cart_products.all
-    cart_products.destroy_all
-    redirect_to public_cart_products_path
+    cart_items = current_customer.cart_items.all
+    cart_items.destroy_all
+    redirect_to public_cart_items_path
   end
 
   private
 
-	def cart_product_params
-	  params.require(:cart_product).permit(:product_id, :quantity)
+	def cart_item_params
+	  params.require(:cart_item).permit(:item_id, :amount)
 	end
 
 end
