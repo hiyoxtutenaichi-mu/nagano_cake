@@ -12,20 +12,22 @@ Rails.application.routes.draw do
        end
 
         devise_for :customers, controllers: {
-          sessions:      'customers/sessions',
-          passwords:     'customers/passwords',
-          registrations: 'customers/registrations'
+          sessions:      'public/sessions',
+          passwords:     'public/passwords',
+          registrations: 'public/registrations'
         }
 
       scope module: :public do
         root 'homes#top'
-        get 'homes/about' => 'public/home#about', as: 'about'
+
+        get 'homes/about' => 'homes#about', as: 'about'
+
 
         resources :items, only: [:index, :show]
 
-        get 'custromers/unsubscribe' => 'public/customers#unsubscribe', as: 'unsubscribe'
-        patch 'custromers/withdraw' => 'public/customers#withdraw',as: 'withdraw'
-        resource :customers, only: [:show, :edit, :update]
+        get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+        patch 'customers/withdraw' => 'customers#withdraw',as: 'withdraw'
+        resources :customers, only: [:show, :edit, :update]
 
         delete 'cart_items/destroy_all' => 'public/cart_items#destroy_all', as: 'destroy_all'
         resources :cart_items, only: [:index, :update, :destroy, :create]
