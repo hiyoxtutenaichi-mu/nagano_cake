@@ -4,10 +4,10 @@
       <h2>商品一覧</h2>
       <p>(全<%= @items.count %>件)</p>
       <% @items.each do |item| %>
-        <%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %>
+        <%= attachment_image_tag item, :image, :fill, 300, 200, format: 'jpeg' %>
         <%= link_to item.name, item_path(item.id) %><br>
         <!--↓↓↓(:delimited)で値段の3桁目を区切って表示↓↓↓-->
-        <p>¥<%= item.price.to_s(:delimited) %></p>
+        <p>¥<%= item.add_tax_price.to_s(:delimited) %></p>
       <% end %>
 
       <%= paginate @items %>
