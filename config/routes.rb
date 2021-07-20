@@ -11,12 +11,12 @@ Rails.application.routes.draw do
          resources :order_details, only: [:update]
        end
 
-        devise_for :customers, controllers: {
+       devise_for :customers, controllers: {
           sessions:      'public/sessions',
           passwords:     'public/passwords',
           registrations: 'public/registrations'
-        }
-
+          }
+  
       scope module: :public do
         root 'homes#top'
 
@@ -32,11 +32,11 @@ Rails.application.routes.draw do
         delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
         resources :cart_items, only: [:index, :update, :destroy, :create]
 
-        post 'orders/confirm' => 'orders#comfirm', as: 'comfirm'
-        get 'orders/complete' => 'orders#compleate', as: 'complete'
+        post 'orders/comfirm' => 'orders#comfirm', as: 'comfirm'
+        get 'orders/complete' => 'orders#complete', as: 'complete'
         resources :orders, only: [:new, :create, :index, :show]
 
         resources :addresses, only: [:index, :edit, :destroy, :create, :update]
       end
-      
+
 end
