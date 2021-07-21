@@ -1,6 +1,5 @@
 ja:
   enums:
-
     order:
       status:
         a: "入金待ち"
@@ -8,6 +7,7 @@ ja:
         c: "制作中"
         d: "発送準備中"
         e: "発送済み"
+
 
     order_detail:
       making_status:
