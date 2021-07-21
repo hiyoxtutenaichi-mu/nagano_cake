@@ -3,6 +3,7 @@ class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
     @customer = current_customer
+    @address = Address.where(customer_id: current_customer)
 
     #カート内商品がなければnewにパス
     cart_items = current_customer.cart_items
@@ -50,7 +51,7 @@ class Public::OrdersController < ApplicationController
 
     # カート商品　保存
     current_customer.cart_items.each do |cart_item|
-      order_detail = @order.order_details.build
+      order_detail = @order.order_details.new
       order_detail.order_id = @order.id
       order_detail.item_id = cart_item.item_id
       order_detail.amount = cart_item.amount
@@ -58,7 +59,7 @@ class Public::OrdersController < ApplicationController
       order_detail.save
       cart_item.destroy
     end
-      render :thanks
+      render :complete
   end
 
   def index
