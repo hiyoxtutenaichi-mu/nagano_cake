@@ -8,26 +8,27 @@ before_action :authenticate_customer!, except: [:create]
 
   def create
     if customer_signed_in?
-      @cart_item = current_customer.cart_item.new(cart_item_params)
+      @cart_item = current_customer.cart_items.new(cart_item_params)
       @cart_items = current_customer.cart_items.all
 
       unless @cart_item.amount.present?
     		redirect_to request.referrer, alert: "個数を選択してください"
       else
-        @cart_items.each do |cart_item|
-    	    if cart_item_id == @cart_item.item_id
-    			  sum_of_amount = cart_item.amount + @cart_item.amount
-    			  cart_item.update_attribute(:amount, sum_of_amount)
-    			  redirect_to cart_items_path, notice: "カートに商品を追加しました"
-    			  @cart_item.delete
-    	    end
-  		  end
-      end
-    	if @cart_item.save
-    		redirect_to cart_items_path, notice: "カートに商品を追加しました"
+        if @cart_items.exists?(item_id: @cart_item.item_id)
+          @cart_items.each do |cart_item|
+      	    if cart_item.item.id == @cart_item.item_id
+      			  sum_of_amount = cart_item.amount + @cart_item.amount
+      			  cart_item.update_attribute(:amount, sum_of_amount)
+      			  @cart_item.delete
+      	    end
+    		  end
+    		else
+    		  @cart_item.save
+        end
+        redirect_to cart_items_path, notice: "カートに商品を追加しました"
     	end
     else
-  	  redirect_to new_customer_session_path
+  	 redirect_to new_customer_session_path
     end
   end
 
