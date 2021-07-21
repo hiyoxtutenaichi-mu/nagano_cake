@@ -1,27 +1,92 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h3>注文情報入力</h3>
-      <%= form_with(model: @order, url: 'orders/comfirm', method: :post, local: true)do |f| %>
-        <table>
-          <tbody>
-            <tr>
-              <th scope="row">支払い方法</th>
-              <td>
-                <div class="radio">
-                  <%= f.radio_button :payment_method, 0 %>
-                  <label class="payment-label"> クレジットカード</label><br>
-                  <%= f.radio_button :payment_method, 1 %>
-                  <label class="payment-label">銀行振り込み</label>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="col-xs-offset-5">
-          <%= f.submit "確認画面へ進む",class:"btn btn-primary col-xs-3 " %>
-        </div>
-      <% end %>
+<% if flash[:notice] %>
+  <div class="flash text-danger">
+   <%= flash[:notice] %>
+  </div>
+ <% end %>
+
+
+<div class = "container mt-md-5">
+<h3><span style="background-color:#dcdcdc">注文情報入力</span></h3>
+<div class = "row">
+    <div class = "col-md-8">
+  <%= form_with  model: @order, url: {controller: 'orders', action: 'comfirm' }, local: true do |f| %>
+
+
+
+    <fieldset class = "row-md">
+    <legend class = "col-form-label" >支払い方法</legend>
+
+    <div class = "col">
+      <div class = "form-check">
+        <%= f.radio_button :payment_method,:"クレジットカード", class: "form-check-input"%>
+        <label>クレジットカード</label>
+      </div>
+
+      <div class = "form-check">
+        <%= f.radio_button :payment_method,:"銀行振り込み", class: "form-check-input"%>
+        <label>銀行振り込み</label>
+      </div>
+    </div>
+    </fieldset>
+
+    <fieldset class = "row">
+    <legend class = "col-form-label">お届け先</legend>
+
+    <div class = "col">
+      <div class =  "mb-3 form-check">
+      <%=f.radio_button :shipping, 1, checked: true, class: "form-check-input"%>
+      <label class= "form-check-label">ご自身の住所</label>
+       <p> <%= current_customer.postal_code%>
+        <%= current_customer.address %>
+        <%= current_customer.last_name %><%=current_customer.first_name %></p>
+      </div>
+
+      <div class="mb-3 form-check">
+      <%=f.radio_button :shipping, 2, class: "form-check-input"%>
+      <lavel class= "form-check-label">登録先住所</lavel>
+      <%=f.collection_select :your_address, @address, :id, :order_address, {}, class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class = "mb-3 form-check">
+      <%= f.radio_button :shipping, 3, class: "form-check-input"%>
+    <label  class= "form-check-label">新しいお届け先</label>
+
+
+   <form>
+    <%=f.fields_for :new_address do |new| %>
+      <div class = "row mb-3">
+      <label class= "col-form-label-sm">郵便番号(ハイフンなし)</label>
+        <div class = "col-md-4">
+        <%= new.text_field :postal_code, class: "form-control form-control-sm", placeholder: "000000" %>
+       </div>
+     </div>
+
+    <div class = "row mb-3">
+      <label class= "col-form-label-sm">住所</label>
+        <div class = "col">
+        <%= new.text_field :address, class: "form-control form-control-sm", placeholder: "東京都渋⾕区代々⽊神園町0-0"%>
+      </div>
+    </div>
+
+    <div class = "row">
+      <label class= "col-form-label-sm">宛名</label>
+        <div class = "col-md-4">
+        <%= new.text_field :name, class: "form-control form-control-sm", placeholder: "令和道⼦"%>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class= "row">
+    <div class= "mx-auto">
+<%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
     </div>
   </div>
+</form>
+
+</fieldset>
+</div>
+
+<% end %>
+</div>
+</div>
 </div>
