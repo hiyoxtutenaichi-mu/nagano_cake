@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="top-title col-md-10 offset-md-2">
+    <div class="top-title mx-auto my-3">
       <p class="text-center">
         ようこそ、ながのCAKEへ！<br>
         このサイトは、ケーキ販売のECサイトになります。<br>
@@ -8,26 +8,26 @@
         購入には会員登録が必要になります。
       </p>
     </div>
-
-
+  </div>
+  <div class="row">
+    <div class="col sm-ml-2"><h2>新着商品</h2></div>
   </div>
 
   <div class="row">
-    <div class="col-md-7 offset-md-2 new_items">
-      <h2>新着商品</h2>
-      <% @items.each do |item| %>
-
-        <%= attachment_image_tag item, :image, format: 'jpeg', fallback: 'no_image.jpg', size:'300x200'%>
-
-
+    <% @items.each do |item| %>
+      <div class="col-sm-5 sm-mr-1 col-md-4 md-mr-2 col-lg-3 lg-mr-1">
+        <%= link_to item_path(item) do %>
+        <%= attachment_image_tag item, :image, format: 'jpeg', fallback: 'no_image.jpg', size:'200x130'%>
         <p>
           <%= item.name %><br>
           ¥<%= item.add_tax_price.to_s(:delimited) %>
-
         </p>
-      <% end %>
-    </div>
-
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-9"></div>
     <div class="all_items col-md-3">
       <%= link_to "全ての商品をみる >",items_path %>
     </div>

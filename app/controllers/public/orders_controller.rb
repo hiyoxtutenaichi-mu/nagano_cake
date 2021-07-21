@@ -19,10 +19,10 @@ class Public::OrdersController < ApplicationController
     @ship_cost = 800
 
     @cart_items.each do |cart_item|
-      @total_price = cart_item.item.price * cart_item.amount
+      @total_price = cart_item.item.price * 1.1 * cart_item.amount
     end
 
-    @total_payment = @total_price * 1.1 + @ship_cost
+    @total_payment = @total_price + @ship_cost
 
     @order.payment_method = params[:order][:payment_method]
     shipping = params[:order][:shipping].to_i
@@ -38,6 +38,16 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = @registration_address.postal_code
       @order.address = @registration_address.address
       @order.name = @registration_address.name
+
+    when 3
+      @order = Order.new(order_params)
+      @address = Address.new
+      @address.postal_code = @order.postal_code
+      @address.address = @order.address
+      @address.name = @order.name
+      @address.customer_id = current_customer.id
+      @address.save
+
 
     end
 
