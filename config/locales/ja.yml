@@ -1,5 +1,6 @@
 ja:
   enums:
+
     order:
       status:
         a: "入金待ち"
