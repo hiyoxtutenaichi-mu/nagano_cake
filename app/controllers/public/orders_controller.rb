@@ -3,6 +3,7 @@ class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
     @customer = current_customer
+
     @address = Address.where(customer_id: current_customer)
 
     #カート内商品がなければnewにパス
@@ -39,6 +40,7 @@ class Public::OrdersController < ApplicationController
       @order.name = @registration_address.name
 
     end
+
   end
 
   def complete
