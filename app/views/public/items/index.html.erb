@@ -1,16 +1,18 @@
 <div class="container">
+  <div class="row my-3">
+    <h2>商品一覧</h2>
+    <p><strong>(全<%= @items.count %>件)</strong></p>
+  </div>
   <div class="row">
-    <div class="col">
-      <h2>商品一覧</h2>
-      <p>(全<%= @items.count %>件)</p>
-      <% @items.each do |item| %>
-        <%= attachment_image_tag item, :image, format: 'jpeg', size:'300x200' %>
-        <%= link_to item.name, item_path(item.id) %><br>
-        <!--↓↓↓(:delimited)で値段の3桁目を区切って表示↓↓↓-->
-        <p>¥<%= item.add_tax_price.to_s(:delimited) %></p>
-      <% end %>
-
-      <%= paginate @items %>
-    </div>
+    <% @items.each do |item| %>
+      <div class="col-sm-5 sm-mr-1 col-md-4 md-mr-2 col-lg-3 lg-mr-1">
+        <%= link_to item_path(item) do %>
+          <%= attachment_image_tag item, :image, format: 'jpeg', fallback: 'no_image.jpg', size:'200x130'%>
+          <p><%= item.name %><br>
+            ¥<%= item.add_tax_price.to_s(:delimited) %></p>
+        <% end %>
+      </div>
+    <% end %>
+    <%= paginate @items %>
   </div>
 </div>

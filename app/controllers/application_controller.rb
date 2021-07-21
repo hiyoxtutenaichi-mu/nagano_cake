@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     if resource_or_scope == :member
       root_path
     elsif resource_or_scope == :admin
-      new_admin_registration_path
+      new_admin_session_path
     else
       root_path
     end
