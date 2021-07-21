@@ -9,9 +9,9 @@
               <th scope="row">支払い方法</th>
               <td>
                 <div class="radio">
-                  <%= f.radio_button :payment_method, 0 %>
+                  <%= f.radio_button :payment_methods, Order.payment_methods.keys.map {|k| [I18n.t("enums.order.payment_methods.#{k}"), k]} %>
                   <label class="payment-label"> クレジットカード</label><br>
-                  <%= f.radio_button :payment_method, 1 %>
+                  <%= f.radio_button :payment_methods, Order.payment_methods.keys.map {|k| [I18n.t("enums.order.payment_methods.#{k}"), k]} %>
                   <label class="payment-label">銀行振り込み</label>
                 </div>
               </td>

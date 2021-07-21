@@ -1,2 +1,40 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+
+<div class="container">
+  <h3>注文履歴詳細</h3>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>購入者</td>
+        <td><%= link_to admin_customer_poath(@order.customer.id) do %>
+            <%= @order.customer.name %>
+            <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>注文日</td>
+        <td><%= @order.created_at %></td>
+      </tr>
+      <tr>
+        <td>配送先</td>
+        <td><%= @order.address %></td>
+      </tr>
+      <tr>
+        <td>支払い方法</td>
+        <td><%= @order.payment_method %></td>
+      </tr>
+      <tr>
+        <td>注文ステータス</td>
+        <td>
+          <%= form_with model: @order do |f| %>
+            <%= f.select :status, Order.statuses.keys.map {|k| [I18n.t("enums.product.status.#{k}"), k]} %>
+          <td>
+            <%= f.submit "更新" %>
+          </td>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!--注文詳細品目の部分テンプレート-->
+  <%= render 'order_detail/details', detail: @order %>
+</div>

@@ -79,3 +79,5 @@ gem 'kaminari','~> 1.2.1'
 # byebug　[binding.pry] をコントローラのアクションに追加する
 gem 'pry-byebug'
 
+# enumを日本語化する
+gem 'enum_help' 
