@@ -31,7 +31,7 @@
               <% end %>
             </td>
             <td>
-              <%= order.total_payment.to_s(:delimited) %>円
+              <%= order.total_payment.round.to_s(:delimited) %>円
             </td>
             <td>
               <%= order.status %>
