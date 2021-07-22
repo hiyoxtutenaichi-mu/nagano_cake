@@ -45,7 +45,7 @@ before_action :authenticate_customer!, except: [:create]
   end
 
   def all_destroy
-    cart_items = current_customer.cart_items.all
+    cart_items = current_customer.cart_items
     cart_items.destroy_all
     redirect_to cart_items_path
   end
