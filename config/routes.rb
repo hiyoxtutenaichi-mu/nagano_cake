@@ -19,12 +19,6 @@ Rails.application.routes.draw do
 
        end
 
-       devise_for :customers, controllers: {
-          sessions:      'public/sessions',
-          passwords:     'public/passwords',
-          registrations: 'public/registrations'
-          }
-
       scope module: :public do
         root 'homes#top'
 
@@ -35,9 +29,9 @@ Rails.application.routes.draw do
 
         get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
         patch 'customers/withdraw' => 'customers#withdraw',as: 'withdraw'
-        resources :customers, only: [:show, :edit, :update]
+        resource :customers, only: [:show, :edit, :update]
 
-        delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
+        delete 'cart_items/all_destroy' => 'cart_items#all_destroy', as: 'all_destroy'
         resources :cart_items, only: [:index, :update, :destroy, :create]
 
         post 'orders/comfirm' => 'orders#comfirm', as: 'comfirm'
@@ -46,5 +40,11 @@ Rails.application.routes.draw do
 
         resources :addresses, only: [:index, :edit, :destroy, :create, :update]
       end
+
+      devise_for :customers, controllers: {
+          sessions:      'public/sessions',
+          passwords:     'public/passwords',
+          registrations: 'public/registrations'
+      }
 
 end

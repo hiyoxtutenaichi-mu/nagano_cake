@@ -4,7 +4,7 @@
       <div class="d-flex">
         <h5 class="my-5 d-table" style="background-color: #e6e3de;">　ショッピングカート　</h5>
         <% if @cart_items %>
-          <div class="mt-5 ml-auto"><%= link_to "カートを空にする", destroy_all_path, method: :delete, class: "btn btn-sm btn-outline-danger" %></div>
+          <div class="mt-5 ml-auto"><%= link_to "カートを空にする", all_destroy_path, method: :delete, class: "btn btn-sm btn-outline-danger" %></div>
         <% end %>
       </div>
 
