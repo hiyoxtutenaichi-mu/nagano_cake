@@ -8,7 +8,9 @@ before_action :authenticate_customer!
  end
 
  def create
-    address = Address.new(Address_params)
+
+    address = Address.new(address_params)
+
     address.customer_id = current_customer.id
     address.save
     redirect_to addresses_path
