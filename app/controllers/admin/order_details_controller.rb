@@ -1,14 +1,16 @@
 class Admin::OrderDetailsController < ApplicationController
-  
+
   def update
-    order_status = Order_detail.find(params[:id])
-    order_status.update(order_details_params)
+    order = OrderDetail.find(params[:id])
+    order.update(order_detail_params)
     redirect_to request.referer
   end
-  
+
+
   private
-  def order_details_params
-    params.require(order_detail).permit(:making_status)
+
+  def order_detail_params
+    params.require(:order_detail).permit(:making_status)
   end
-  
+
 end
