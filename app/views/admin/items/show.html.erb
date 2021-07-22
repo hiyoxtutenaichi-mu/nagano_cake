@@ -1,7 +1,7 @@
 <main>
   <div class="container">
-    <div class="row">
-      <div class="mt-5 col-md-5">
+    <div class="pt-5">
+      <h3><span style="background-color:#dcdcdc">商品詳細</span></h3>
         <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: 'no_image.jpg', size:'300x200'%>
         <table class="table">
           <tr>
@@ -34,7 +34,6 @@
 
         <%= link_to "編集する", edit_admin_item_path(@item.id), class: "btn btn-success" %>
 
-      </div>
     </div>
   </div>
 </main>

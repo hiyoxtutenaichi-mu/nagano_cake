@@ -1,6 +1,7 @@
 <main>
   <div class="container">
     <div class="pt-5">
+      <h3><span style="background-color:#dcdcdc"><%= @customer.last_name %><%= @customer.first_name %>の会員情報編集</span></h3>
       <%= form_with model: @customer, url: admin_customer_path, local: true do |f| %>
       <table class="table">
         <tr>
