@@ -16,7 +16,6 @@ Rails.application.routes.draw do
          resources :orders, only: [:show, :update]
          resources :order_details, only: [:update]
          patch 'admin/order/:id' => 'order#update'
-
        end
 
       scope module: :public do
