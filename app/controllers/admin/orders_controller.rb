@@ -6,9 +6,18 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    #binding.pry
     order = Order.find(params[:id])
     order.update(order_params)
+    order_details = order.order_details
+    making_as = order_details.where(making_status: 'a' )
+
+    if order.status == "b"
+      making_as.each do |order_detail|
+        order_detail.making_status = "b"
+        order_detail.save
+      end
+    end
+
     redirect_to request.referer
   end
 
