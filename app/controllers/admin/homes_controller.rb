@@ -2,9 +2,10 @@ class Admin::HomesController < ApplicationController
 
   def top
     if  params[:customer_id].nil?
-      @orders = Order.page(params[:page]).reverse_order
+      orders = Order.all.order(created_at: :desc)
+      @orders = orders.page(params[:page]).per(10)
     else
-      @orders = Order.where(customer_id: params[:customer_id]).page(params[:page]).reverse_order
+      @orders = Order.where(customer_id: params[:customer_id]).page(params[:page]).per(10)
     end
 
   end
