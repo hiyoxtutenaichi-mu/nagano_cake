@@ -1,0 +1,74 @@
+<div class="container mt-md-5">
+  <h3><span style="background-color:#dcdcdc">注文履歴詳細</span></h3>
+  <div class="row">
+    <div class="col-md-6">
+      <h5>注文情報</h5>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="table-active">配送先</th>
+          <td>
+            <p>〒<%= @order.postal_code %>
+            <br><%= @order.address %>
+            <br><%= @order.name %>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <th class="table-active">支払い方法</th>
+          <td><%= @order.payment_method %></td>
+        </tr>
+        <tr>
+          <th class="table-active">ステータス</th>
+          <td><%= @order.status_i18n %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-6">
+      <h5>請求情報</h5>
+      <table class="table table-bordered">
+        <tr>
+          <th class="table-active">商品合計</th>
+          <td><%= (@order.total_payment - @order.shipping_cost).to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="table-active">配送料</th>
+          <td><%= @order.shipping_cost.round.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="table-active">ご請求額</th>
+          <td><%= @order.total_payment.round.to_s(:delimited) %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="row mx-2 mt-4">
+      <div class="col">
+        <h5>注文内容</h5>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="table-active">商品</th>
+              <th class="table-active">単価（税込）</th>
+              <th class="table-active">個数</th>
+              <th class="table-active">小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order_details.each do |order_detail| %>
+              <tr>
+                <td><%= order_detail.item.name %></td>
+                <td><%= (order_detail.item.price * 1.1).round.to_s(:delimited) %></td>
+                <td><%= order_detail.amount %></td>
+                <td><%= ((order_detail.item.price * 1.1) * order_detail.amount).round.to_s(:delimited) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
